@@ -111,6 +111,7 @@ jobs:
     - name: Insert Environment Name
       run: |
             cd main
+            ls
             sed -i "/organization/c\   organization\ = \"${{ secrets.TF_ORGANIZATION }}\"" main.tf 
             sed -i "/name/c\   name\ = \"${{ secrets.TF_WORKSPACE }}\"" main.tf
 
