@@ -33,5 +33,6 @@ variable "ubuntu_ami" {
 #Key Pair Name
 variable "key_name" {
   description = "Desired name of AWS key pair"
+  default = "goofkey"
 }
 
