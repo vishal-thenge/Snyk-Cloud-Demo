@@ -71,7 +71,7 @@ jobs:
                 "type": "permissions"
             }
         }' | jq -r .data.attributes.data > snyk_provision.tf
-
+        cat snyk_provision.tf
 
     # Initialize Terrraform for Snyk Permissions
 
