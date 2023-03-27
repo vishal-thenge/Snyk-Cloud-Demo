@@ -89,7 +89,7 @@ jobs:
 
     - name: Create Snyk Cloud Environment
       run : |
-           curl -X POST \ 'https://api.snyk.io/rest/orgs/${{ secrets.SNYK_ORG }}/cloud/environments?version=2022-12-21~beta' \ -H 'Authorization: token ${{ secrets.SNYK_TOKEN }}' \ -H 'Content-Type:application/vnd.api+json' -d '{ "data": { "attributes": { "kind": "aws", "name": "Snyk Cloud Demo AWS Environment", "options": { "role_arn": "${{ env.ROLE_ARN }}" } }, "type": "environment" } }'"
+           curl -X POST \ 'https://api.snyk.io/rest/orgs/${{ secrets.SNYK_ORG }}/cloud/environments?version=2022-12-21~beta' \ -H 'Authorization: token ${{ secrets.SNYK_TOKEN }}' \ -H 'Content-Type:application/vnd.api+json' -d '{ "data": { "attributes": { "kind": "aws", "name": "Snyk Cloud Demo AWS Environment", "options": { "role_arn": "${{ env.ROLE_ARN }}" } }, "type": "environment" } }'
 
 
 
