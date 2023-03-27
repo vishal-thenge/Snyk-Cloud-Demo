@@ -1,0 +1,156 @@
+
+name: 'Build and Deploy Demo Environment'
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - '_build_flag'
+
+jobs:
+  Pipeline-Job:
+    # Configure Environment
+    
+    name: 'Deploy Terraform'
+    runs-on: ubuntu-latest
+    env:
+   # These variables are required
+      SNYK_IAC_CAPTURE_API_REST_URL: https://api.snyk.io
+      SNYK_IAC_CAPTURE_API_REST_TOKEN: ${{ secrets.SNYK_TOKEN }} 
+      SNYK_IAC_CAPTURE_ORG: ${{ secrets.SNYK_ORG}}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
+
+        
+    # Checkout Code   
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        path: main
+
+        
+    # Install the latest version of Terraform CLI
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        cli_config_credentials_token: ${{ secrets.TERRAFORM_API_KEY }}
+        terraform_wrapper: false
+
+    
+    ###### Configure Snyk Environment ######
+
+
+    # Onboard Cloud Environment to Snyk Cloud
+
+    - name: Onboard Cloud Environment to Snyk CLoud
+      shell: bash
+      run: |
+        mkdir tmp
+        cd tmp
+        curl -X POST \
+        'https://api.snyk.io/rest/orgs/${{ secrets.SNYK_ORG }}/cloud/permissions?version=2023-03-08~beta' \
+        -H 'Authorization: token ${{ secrets.SNYK_TOKEN }}' \
+        -H 'Content-Type:application/vnd.api+json' -d '{
+            "data": {
+                "attributes": {
+                    "type": "tf",
+                    "platform": "aws"
+                },
+                "type": "permissions"
+            }
+        }' | jq -r .data.attributes.data > snyk_provision.tf
+
+
+    # Initialize Terrraform for Snyk Permissions
+
+    - name: Terraform Init
+      run: terraform init
+
+
+    # Apply Terraform For Snyk Permissions
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+
+  
+    # Cleanup snyk cl=
+
+    - name: Cleanup
+      shell: bash
+      run: |
+        cd ..    
+        rm -rf tmp
+
+    # Get Snyk Cloud Environment ID
+
+    - name: Get Snyk Cloud Environment ID
+      run : |
+           out=$(curl -X GET 'https://api.snyk.io/rest/orgs/${{ secrets.SNYK_ORG }}/cloud/environments?version=2022-12-21~beta' -H 'Authorization: token${{ secrets.SNYK_TOKEN }}' | jq '.data[0].relationships.organization.data.id' | tr -d \")
+           echo ::set-env name=SNYK_CLOUD_ID::$(echo "${out}")
+
+    ##### Deploy and Scan Vulnerable Terraform #####
+
+
+    # Insert Organization + Workspace into main.tf
+
+    - name: Insert Environment Name
+      run: |
+            sed -i "/organization/c\   organization\ = \"${{ secrets.TF_ORGANIZATION }}\"" main.tf 
+            sed -i "/name/c\   name\ = \"${{ secrets.TF_WORKSPACE }}\"" main.tf
+
+
+    # Report on IaC
+
+    - name: Run Snyk Report
+      run : |
+           curl -sSL -o /usr/local/bin/snyk https://static.snyk.io/cli/latest/snyk-linux
+           chmod +x /usr/local/bin/snyk
+           snyk iac test --report --target-reference=$(git branch --show-current) --org=${{ secrets.SNYK_ORG }} -d 
+      continue-on-error: true
+
+
+    # Trigger Terraform Cloud to initialize vulnerable environment    
+
+    - name: Terraform Init
+      run: terraform init
+
+
+    # Deploy Vulnerable Environment
+  
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+
+
+    # Pull Terraform State file for inspection by Snyk
+
+    - name: Terraform state pull
+      run: terraform state pull > tfcloud.tfstate 
+
+
+    # Snyk IaC Capture
+
+    - name: Setup Snyk capture cli
+      shell: bash
+      run: |
+       curl -sSL -o /usr/local/bin/snyk-iac-capture https://static.snyk.io/cli/iac/capture/v0.1.1/snyk-iac-capture_Linux_x86_64
+       chmod +x /usr/local/bin/snyk-iac-capture
+
+
+    # Snyk IaC Capture     
+
+    - name: Snyk IAC Capture
+      run: snyk-iac-capture -d --path tfcloud.tfstate 
+
+
+    # Kick off Snyk Cloud Rescan
+
+    - name: Rescan Cloud Environment
+      run : |
+          curl -X POST \
+          'https://api.snyk.io/rest/orgs/${{ secrets.SNYK_ORG }}/cloud/scans?version=2022-12-21~beta' \
+          -H 'Authorization: token ${{ secrets.SNYK_TOKEN }}' \
+          -H "Content-Type:application/vnd.api+json"  -d '{ "data": { "relationships": { "environment": { "data": { "id": "${{ SNYK_CLOUD_ID }}", "type": "environment" } } }, "type": "resource" } }'
+                                                      
+

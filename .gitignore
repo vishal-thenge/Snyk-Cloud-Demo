@@ -1,0 +1,9 @@
+.dccache
+.terraform
+.terraform.lock.hcl
+tf.plan
+tf-plan.json
+tfplan.binary
+script.sh
+tfcloud.tfstate
+snyk-iac-capture_Darwin_x86_64
