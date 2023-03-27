@@ -2,7 +2,25 @@
 
 ## Deployment
 
-Going to put instructions here
+Github Variables:
+
+```
+SNYK_ORG
+SNYK_TOKEN
+TERRAFORM_API_KEY
+TF_ORGANIZATION
+TF_WORKSPACE
+```
+
+Terraform Cloud Variables:
+
+```
+email
+key_name
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+```
+
 
 ## Cleanup
 
