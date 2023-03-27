@@ -24,3 +24,14 @@ variable "primary_az" {
   default     = "us-east-2a"
 }
 
+#AMI - You must adjust this based on the region you're in
+variable "ubuntu_ami" {
+  default = "ami-05803413c51f242b7"
+}
+
+
+#Key Pair Name
+variable "key_name" {
+  description = "Desired name of AWS key pair"
+}
+
