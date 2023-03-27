@@ -2,23 +2,11 @@
 
 ## Deployment
 
-Github Variables:
+Add the following Github Variables:
 
 ```
 SNYK_ORG
 SNYK_TOKEN
-TERRAFORM_API_KEY
-TF_ORGANIZATION
-TF_WORKSPACE
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
-```
-
-Terraform Cloud Variables:
-
-```
-email
-key_name
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 ```
@@ -26,7 +14,7 @@ AWS_SECRET_ACCESS_KEY
 
 ## Cleanup
 
-To delete the environment from Snyk Cloud, use the following command:
+To delete the environment from Snyk Cloud use the UI or the following command:
 
 ```
 curl -X DELETE \
