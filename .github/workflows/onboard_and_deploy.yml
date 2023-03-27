@@ -73,7 +73,7 @@ jobs:
         }' | jq -r .data.attributes.data > snyk_provision.tf
         terraform init
         terraform apply -auto-approve
-
+        terraform output -json
   
     # Cleanup snyk cl=
 
@@ -82,6 +82,15 @@ jobs:
       run: |
         cd ..    
         rm -rf tmp
+
+
+    # Create Snyk Cloud Environment
+
+    - name: Create Snyk Cloud Environment
+      run : |
+           out=$(curl -X POST \ 'https://api.snyk.io/rest/orgs/YOUR-ORGANIZATION-ID/cloud/environments?version=2022-12-21~beta' \ -H 'Authorization: token YOUR-API-TOKEN' \ -H 'Content-Type:application/vnd.api+json' -d '{ "data": { "attributes": { "kind": "aws", "name": "Snyk Cloud Demo AWS Environment", "options": { "role_arn": "$ROLE_ARN" } }, "type": "environment" } }'")
+           echo ::set-env name=SNYK_CLOUD_ID::$(echo "${out}")
+
 
     # Get Snyk Cloud Environment ID
 
