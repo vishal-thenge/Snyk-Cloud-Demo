@@ -15,13 +15,13 @@ variable "owner" {
 #AWS Region
 variable "aws_region" {
   description = "AWS region to launch servers."
-  default     = "us-east-2"
+  default     = "us-east-1"
 }
 
 #AWS AZ
 variable "primary_az" {
   description = "primary AZ"
-  default     = "us-east-2a"
+  default     = "us-east-1a"
 }
 
 #AMI - You must adjust this based on the region you're in
