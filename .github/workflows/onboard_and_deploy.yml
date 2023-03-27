@@ -74,7 +74,7 @@ jobs:
         terraform init
         terraform apply -auto-approve
         out=$(terraform output -json |jq .role_arn.value | tr -d \" )
-        echo "{ROLE_ARN=$(echo "${out}"" >> $GITHUB_ENV
+        echo "{ROLE_ARN=$(echo ${out}" >> $GITHUB_ENV
     # Cleanup snyk cl=
 
     - name: Cleanup
