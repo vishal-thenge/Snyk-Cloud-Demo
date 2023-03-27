@@ -13,16 +13,4 @@ resource "aws_instance" "vuln_vm" {
   }
 }
 
-# Unecrypted EBS
-resource "aws_ebs_volume" "volume1" {
-    availability_zone = var.primary_az
-    size              = 40
-    encrypted         = false
-    tags = {
-        Name = "${var.owner}-volume1"
-        Owner = var.owner
-    }
-}
-
-
 
