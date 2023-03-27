@@ -76,6 +76,8 @@ jobs:
         out=$(terraform output -json |jq .role_arn.value | tr -d \" )
         echo "ROLE_ARN=$(echo "${out}")" >> $GITHUB_ENV
         sleep 10
+
+
     # Cleanup
 
     - name: Cleanup
@@ -98,7 +100,7 @@ jobs:
     - name: Get Snyk Cloud Environment ID
       run : |
            out=$(curl -X GET 'https://api.snyk.io/rest/orgs/${{ secrets.SNYK_ORG }}/cloud/environments?version=2022-12-21~beta' -H 'Authorization: token ${{ secrets.SNYK_TOKEN }}' | jq '.data[0].relationships.organization.data.id' | tr -d \" )
-           echo "SNYK_CLOUD_ID=$(echo "${out}"")" >> $GITHUB_ENV
+           echo "SNYK_CLOUD_ID=$(echo "${out}")" >> $GITHUB_ENV
            
 
     ##### Deploy and Scan Vulnerable Terraform #####
