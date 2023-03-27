@@ -71,18 +71,8 @@ jobs:
                 "type": "permissions"
             }
         }' | jq -r .data.attributes.data > snyk_provision.tf
-        cat snyk_provision.tf
-
-    # Initialize Terrraform for Snyk Permissions
-
-    - name: Terraform Init
-      run: terraform init
-
-
-    # Apply Terraform For Snyk Permissions
-
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+        terraform init
+        terraform apply -auto-approve
 
   
     # Cleanup snyk cl=
