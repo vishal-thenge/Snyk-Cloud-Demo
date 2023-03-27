@@ -18,7 +18,9 @@ jobs:
       SNYK_IAC_CAPTURE_API_REST_URL: https://api.snyk.io
       SNYK_IAC_CAPTURE_API_REST_TOKEN: ${{ secrets.SNYK_TOKEN }} 
       SNYK_IAC_CAPTURE_ORG: ${{ secrets.SNYK_ORG}}
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
         
     # Checkout Code   
