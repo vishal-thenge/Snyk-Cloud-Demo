@@ -9,9 +9,9 @@ resource "aws_vpc" "tfgoof_vpc" {
 }
 
 resource "aws_subnet" "tfgoof_subnet" {
-  vpc_id            = aws_vpc.my_vpc.id
+  vpc_id            = aws_vpc.tfgoof_vpc.id
   cidr_block        = "172.16.10.0/24"
-  availability_zone = "us-west-2a"
+  availability_zone = "us-east-2a"
 
   tags = {
     Owner = var.owner
@@ -19,7 +19,7 @@ resource "aws_subnet" "tfgoof_subnet" {
 }
 
 resource "aws_network_interface" "tfgoof_interface" {
-  subnet_id   = aws_subnet.my_subnet.id
+  subnet_id   = aws_subnet.tfgoof_subnet.id
   private_ips = ["172.16.10.100"]
 
   tags = {
