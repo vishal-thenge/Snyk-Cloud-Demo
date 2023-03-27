@@ -33,7 +33,7 @@ resource "aws_instance" "vuln_vm" {
   instance_type = "t2.micro"
   user_data =  "${file("vuln_bootstrap.sh")}"
   network_interface {
-    network_interface_id = aws_network_interface.tfgoof.id
+    network_interface_id = aws_network_interface.tfgoof_interface.id
     device_index         = 0
   }
 
