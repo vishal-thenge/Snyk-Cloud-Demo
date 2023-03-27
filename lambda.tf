@@ -1,13 +1,13 @@
 #SNS Topic for Lambda Function
-resource "aws_sns_topic" "tfgoof_sns_topic" {
-  name                        = "${var.victim_company}_sns_topic"
-  display_name                = "${var.victim_company}SNSTopic"
+#resource "aws_sns_topic" "tfgoof_sns_topic" {
+#  name                        = "${var.victim_company}_sns_topic"
+#  display_name                = "${var.victim_company}SNSTopic"
 
-  tags =  {
-    env = "${var.victim_company}Demo"
-    Owner = var.owner
-  }
-}
+ # tags =  {
+ #   env = "${var.victim_company}Demo"
+ #   Owner = var.owner
+ # }
+#}
 
 resource "aws_sns_topic_subscription" "tfgoof_sns_topic_subscription" {
   topic_arn              = join("", aws_sns_topic.tfgoof_sns_topic.*.arn)
@@ -138,13 +138,13 @@ resource "aws_cloudwatch_log_group" "tfgoof_lambda_cw_group" {
 
 # API Gateway
 
-resource "aws_api_gateway_rest_api" "tfgoof_lambda_apigw" {
-  name        = "${var.victim_company}_api_gw"
+#resource "aws_api_gateway_rest_api" "tfgoof_lambda_apigw" {
+#  name        = "${var.victim_company}_api_gw"
 
-  tags = {
-  Owner = var.owner
-  }
-}
+#  tags = {
+#  Owner = var.owner
+#  }
+#}
 
 resource "aws_api_gateway_resource" "tfgoof_aws_apigw_proxy" {
    rest_api_id = aws_api_gateway_rest_api.tfgoof_lambda_apigw.id

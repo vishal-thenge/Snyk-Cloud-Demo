@@ -9,24 +9,23 @@ tags = {
 }
 
 # Build Internet Gateway
-resource "aws_internet_gateway" "tfgoof_demo_gateway" {
-  vpc_id = aws_vpc.tfgoofdemovpc.id
-  tags = {
-    Owner = var.owner
-  }
-}
+#resource "aws_internet_gateway" "tfgoof_demo_gateway" {
+#  vpc_id = aws_vpc.tfgoofdemovpc.id
+#  tags = {
+#    Owner = var.owner
+#  }
+#}
 
 
 # Create a subnet
-resource "aws_subnet" "external" {
-  vpc_id                  = aws_vpc.tfgoofdemovpc.id
-  cidr_block              = var.aws_subnet_cidr
-  availability_zone       = var.primary_az
-  tags = {
-    Owner = var.owner
-  }
- 
-}
+#resource "aws_subnet" "external" {
+#  vpc_id                  = aws_vpc.tfgoofdemovpc.id
+#  cidr_block              = var.aws_subnet_cidr
+#  availability_zone       = var.primary_az
+#  tags = {
+#    Owner = var.owner
+#  } 
+#}
 
 #Create a Route Table
 resource "aws_route_table" "tfgoof_route_table" {
@@ -56,46 +55,44 @@ resource "aws_route_table_association" "tfgoof_route_association" {
 
 #Create security groups 
 
-resource "aws_security_group" "tfgoof_sg" {
-  name = "${var.victim_company}-ssh-sg"
-  vpc_id = aws_vpc.tfgoofdemovpc.id
-ingress {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      cidr_blocks = [var.source_ip]
-  }
-ingress {
+#resource "aws_security_group" "tfgoof_sg" {
+#  name = "${var.victim_company}-ssh-sg"
+#  vpc_id = aws_vpc.tfgoofdemovpc.id
+#ingress {
+#      from_port   = 22
+#      to_port     = 22
+#      protocol    = "tcp"
+#      cidr_blocks = [var.source_ip]
+#  }
+#ingress {
    #change to port 80 to allow public access
-      from_port   = 8000
-      to_port     = 8000
-      protocol    = "tcp"
-      cidr_blocks = [var.source_ip]
-  }
-ingress {
-      from_port   = 3389
-      to_port     = 3389
-      protocol    = "tcp"
-      cidr_blocks = [var.source_ip]
-  }
- ingress {
-      from_port   = 1337
-      to_port     = 3389
-      protocol    = "tcp"
-      cidr_blocks = [var.source_ip]
-  }   
-egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [var.source_ip]
-  }
-
-tags = {
-    Owner = var.owner
-  }
-
-}
+#      from_port   = 8000
+#      to_port     = 8000
+#      protocol    = "tcp"
+#      cidr_blocks = [var.source_ip]
+#  }
+#ingress {
+#      from_port   = 3389
+#      to_port     = 3389
+#      protocol    = "tcp"
+#      cidr_blocks = [var.source_ip]
+#  }
+# ingress {
+#      from_port   = 1337
+#      to_port     = 3389
+#      protocol    = "tcp"
+#      cidr_blocks = [var.source_ip]
+#  }   
+#egress {
+#    from_port   = 0
+#    to_port     = 0
+#    protocol    = "-1"
+#    cidr_blocks = [var.source_ip]
+#  }
+#tags = {
+#    Owner = var.owner
+#  }
+#}
 
 
 #Create Network Interface
