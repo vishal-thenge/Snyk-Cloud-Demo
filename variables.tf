@@ -24,8 +24,3 @@ variable "primary_az" {
   default     = "us-east-1a"
 }
 
-#AMI - You must adjust this based on the region you're in
-variable "ubuntu_ami" {
-  default = "ami-05803413c51f242b7"
-}
-
