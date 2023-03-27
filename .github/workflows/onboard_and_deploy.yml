@@ -103,15 +103,6 @@ jobs:
 
     ##### Deploy and Scan Vulnerable Terraform #####
 
-
-    # Insert Organization + Workspace into main.tf
-
-    - name: Insert Environment Name
-      run: |
-            sed -i "/organization/c\   organization\ = \"${{ secrets.TF_ORGANIZATION }}\"" main.tf 
-            sed -i "/name/c\   name\ = \"${{ secrets.TF_WORKSPACE }}\"" main.tf
-
-
     # Report on IaC
 
     - name: Run Snyk Report
