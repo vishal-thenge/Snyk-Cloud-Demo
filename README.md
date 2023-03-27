@@ -1,5 +1,7 @@
 # Snyk-Cloud-Demo
 
+This is a vulnerable by design repository for demonstrating Snyk Cloud. Do not deploy this in production
+
 ## Deployment
 
 Add the following Github Variables:
@@ -11,6 +13,7 @@ AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 ```
 
+To deploy, just commit and push a change in the <b>_build_flag</b> file. This will kick off the Github Action.
 
 ## Cleanup
 
