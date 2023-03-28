@@ -4,7 +4,7 @@
 variable "victim_company" {
   type        = string
   description = "For naming purposes"
-  default     = "badpatch"
+  default     = "testpatch"
 }
 
 #Owner CHANGE THIS
