@@ -14,7 +14,7 @@ resource "aws_db_instance" "default" {
 }
 
 resource "aws_db_subnet_group" "tfgoof_subnet_group" {
-  name       = "${var.victim_company}-subnet-group"
+  name       = "${var.victim_company}_subnet_group"
   subnet_ids = [aws_subnet.external_db.id, aws_subnet.internal_db.id]
 
   tags = {
