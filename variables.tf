@@ -24,3 +24,31 @@ variable "primary_az" {
   default     = "us-east-1a"
 }
 
+#AWS VPC CIDR
+variable "aws_vpc_cidr" {
+  description = "aws vpc cidr"
+  type        = string
+  default = "10.0.0.0/16"
+}
+
+#AWS Subnet CIDR
+variable "aws_subnet_cidr" {
+  description = "aws subnet cidr"
+  type        = string
+  default = "10.0.0.0/24"
+}
+
+#Server Private IP
+variable "tfgoof_private" {
+  description = "tfgoof_private_ip"
+  type        = string
+  default     = "10.0.0.10"
+}
+
+#Source IP address
+variable "source_ip" {
+  description = "source ip"
+  type        = string
+  default = "0.0.0.0/0"
+}
+
