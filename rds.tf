@@ -15,7 +15,7 @@ resource "aws_db_instance" "default" {
 
 resource "aws_db_subnet_group" "tfgoof_subnet_group" {
   name       = "${var.victim_company}-subnet-group"
-  subnet_ids = [aws_subnet.frontend.id, aws_subnet.backend.id]
+  subnet_ids = [aws_subnet.external_db.id, aws_subnet.internal_db.id]
 
   tags = {
     Owner = var.owner
