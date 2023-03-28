@@ -90,7 +90,7 @@ resource "aws_route_table_association" "tfgoof_route_association" {
 #Create security groups
 
 resource "aws_security_group" "tfgoof_sg" {
-  name = "${var.victim_company}-ssh-sg"
+  name = "${var.victim_company}-ssh"
   vpc_id = aws_vpc.tfgoofdemovpc.id
 ingress {
       from_port   = 22
@@ -131,7 +131,7 @@ tags = {
 
 
 #Create Network Interface
-resource "aws_network_interface" "tfgoof-nic" {
+resource "aws_network_interface" "tfgoof_nic" {
     subnet_id = aws_subnet.external.id
     private_ips = [var.tfgoof_private]
     security_groups = [aws_security_group.tfgoof_sg.id]
