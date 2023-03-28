@@ -28,3 +28,9 @@ resource "aws_s3_bucket_acl" "intentionallyexposedbucket_acl" {
   bucket = aws_s3_bucket.intentionallyexposedbucket.id
   acl    = "public-read"
 }
+
+resource "aws_cloudtrail" "secure" {
+  name           = "secure"
+  s3_bucket_name = aws_s3_bucket.exposedbucket.id
+  enable_logging = false
+}

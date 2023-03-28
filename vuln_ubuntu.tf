@@ -144,7 +144,7 @@ resource "aws_network_interface" "tfgoof_nic" {
 #Create Elastic IP
 resource "aws_eip" "tfgoof_eip" {
   vpc                       = true
-  network_interface         = aws_network_interface.tfgoof-nic.id
+  network_interface         = aws_network_interface.tfgoof_nic.id
   associate_with_private_ip = var.tfgoof_private
   depends_on = [aws_internet_gateway.tfgoof_demo_gateway]
 
