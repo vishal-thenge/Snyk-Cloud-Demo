@@ -44,6 +44,7 @@ resource "aws_subnet" "external_db" {
 resource "aws_subnet" "internal_db" {
   vpc_id                  = aws_vpc.tfgoofdbvpc.id
   cidr_block = "10.0.10.0/24"
+  availability_zone = "us-east-1b"
   tags = {
     Owner = var.owner
   }
