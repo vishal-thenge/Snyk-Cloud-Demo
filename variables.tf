@@ -1,13 +1,13 @@
 #Company Name
 
-#Owner CHANGE THIS - lower case only
+#CHANGE THIS - lower case only
 variable "victim_company" {
   type        = string
   description = "For naming purposes"
   default     = "testpatch"
 }
 
-#Owner CHANGE THIS
+#CHANGE THIS
 variable "owner" {
   type        = string
   description = "For Tagging and Filtering purposes"

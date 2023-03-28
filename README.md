@@ -13,17 +13,17 @@ AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 ```
 
-Ensure you update these two variables:
+Ensure you update these two variables (not doing so can cause things to fail):
 ```
 
-#Owner CHANGE THIS
+#CHANGE THIS - lower case only
 variable "victim_company" {
   type        = string
   description = "For naming purposes"
   default     = "mikedemo"
 }
 
-#Owner CHANGE THIS
+#CHANGE THIS
 variable "owner" {
   type        = string
   description = "For Tagging and Filtering purposes"
