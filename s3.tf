@@ -1,6 +1,6 @@
 #Define Buckets
 resource "aws_s3_bucket" "exposedbucket" {
-  bucket = "${var.victim_company}_accidentlyexposed"
+  bucket = "${var.victim_company}accidentlyexposed"
   
   tags = {
     Name        = "Exposed Bucket"

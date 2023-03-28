@@ -47,3 +47,37 @@ resource "aws_subnet" "internal_db" {
   }
 
 }
+
+# Build Internet Gateway
+resource "aws_internet_gateway" "tfgoof_db_gateway" {
+  vpc_id = aws_vpc.tfgoofdbvpc.id
+  tags = {
+    Owner = var.owner
+  }
+}
+
+
+#Create a Route Table
+resource "aws_route_table" "tfgoof_db_route_table" {
+  vpc_id = aws_vpc.tfgoofdbvpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.tfgoof_db_gateway.id
+  }
+
+  route {
+    ipv6_cidr_block        = "::/0"
+    gateway_id = aws_internet_gateway.tfgoof_db_gateway.id
+  }
+  tags = {
+    Owner = var.owner
+  }
+
+  }
+
+#Associate Route Table to Subnet
+resource "aws_route_table_association" "tfgoof_db_route_association" {
+    subnet_id = aws_subnet.external_db.id
+    route_table_id = aws_route_table.tfgoof_db_route_table.id
+}
