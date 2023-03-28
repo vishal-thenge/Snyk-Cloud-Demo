@@ -4,7 +4,7 @@ resource "aws_db_instance" "default" {
   engine               = "mysql"
   engine_version       = "5.7"
   instance_class       = "db.t2.micro"
-  name                 = "mydbvalid"
+  name                 = "db_name"
   username             = "validpublic"
   password             = "SecretPassw0rd"
   parameter_group_name = "default.mysql5.7"
@@ -24,6 +24,7 @@ resource "aws_db_subnet_group" "tfgoof_subnet_group" {
 
 
 resource "aws_vpc" "tfgoofdbvpc" {
+    cidr_block = "10.0.0.0/16"
 tags = {
     Owner = var.owner
   }
