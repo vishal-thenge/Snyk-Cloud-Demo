@@ -152,3 +152,8 @@ resource "aws_eip" "tfgoof_eip" {
   Owner = var.owner
   }
 }
+
+output "public_ip" {
+  description = "List of public IP addresses assigned to the instances, if applicable"
+  value       = aws_instance.vuln_vm.public_ip
+}
