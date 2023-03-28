@@ -1,11 +1,34 @@
 #Define Buckets
 resource "aws_s3_bucket" "exposedbucket" {
   bucket = "${var.victim_company}accidentlyexposed"
-  
+
   tags = {
     Name        = "Exposed Bucket"
     env = "Dev"
     Owner = var.owner
+  }
+}
+
+# Policies
+resource "aws_s3_bucket_policy" "open_policy" {
+  bucket = aws_s3_bucket.exposedbucket.id
+  policy = data.aws_iam_policy_document.allow_access.json
+}
+
+data "aws_iam_policy_document" "allow_access" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = ["123456789012"]
+    }
+
+    actions = [
+      "sts:AssumeRole",
+    ]
+
+    resources = [
+      "*",
+    ]
   }
 }
 

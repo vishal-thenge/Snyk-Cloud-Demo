@@ -25,6 +25,8 @@ resource "aws_db_subnet_group" "tfgoof_subnet_group" {
 
 resource "aws_vpc" "tfgoofdbvpc" {
     cidr_block = "10.0.0.0/16"
+    enable_dns_hostnames = true
+    enable_dns_support = true
 tags = {
     Owner = var.owner
   }
