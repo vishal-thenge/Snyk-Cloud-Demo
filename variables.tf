@@ -1,8 +1,10 @@
 #Company Name
+
+#Owner CHANGE THIS
 variable "victim_company" {
   type        = string
   description = "For naming purposes"
-  default     = "goofdemo"
+  default     = "mikedemo"
 }
 
 #Owner CHANGE THIS

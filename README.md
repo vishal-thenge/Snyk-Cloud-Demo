@@ -13,6 +13,24 @@ AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 ```
 
+Ensure you update these two variables:
+```
+
+#Owner CHANGE THIS
+variable "victim_company" {
+  type        = string
+  description = "For naming purposes"
+  default     = "mikedemo"
+}
+
+#Owner CHANGE THIS
+variable "owner" {
+  type        = string
+  description = "For Tagging and Filtering purposes"
+  default     = "Patch"
+}
+```
+
 To deploy, just commit and push a change in the <b>_build_flag</b> file. This will kick off the Github Action.
 
 ## Cleanup

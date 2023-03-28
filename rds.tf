@@ -32,7 +32,7 @@ tags = {
 
 resource "aws_subnet" "external_db" {
   vpc_id                  = aws_vpc.tfgoofdbvpc.id
-  cidr_block = "10.0.0.0/24"
+  cidr_block = "10.0.20.0/24"
   tags = {
     Owner = var.owner
   }
@@ -41,7 +41,7 @@ resource "aws_subnet" "external_db" {
 
 resource "aws_subnet" "internal_db" {
   vpc_id                  = aws_vpc.tfgoofdbvpc.id
-  cidr_block = "10.0.0.0/24"
+  cidr_block = "10.0.10.0/24"
   tags = {
     Owner = var.owner
   }
