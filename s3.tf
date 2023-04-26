@@ -1,4 +1,4 @@
-#Define Buckets
+#Define S3 Buckets
 resource "aws_s3_bucket" "exposedbucket" {
   bucket_prefix = "${var.victim_company}exposedbucket"
   tags = {
